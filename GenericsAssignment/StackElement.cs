@@ -5,11 +5,15 @@ using System.Text;
 
 namespace GenericsAssignment
 {
-    class StackElement : IEnumerable
+    internal class StackElement : IEnumerable<CustomerRecord>
     {
         private List<CustomerRecord> List { get; set; }
+        private List<CustomerRecord> tempList { get; set; }
         public int Count { get { return List.Count; } }
-
+        public StackElement()
+        {
+            List = new List<CustomerRecord>();
+        }
         public void Push(CustomerRecord record)
         {
             List.Add(record);
@@ -18,7 +22,7 @@ namespace GenericsAssignment
         {
             if (List.Count > 0)
             {
-                List.Remove(List[List.Count]);
+                List.Remove(List[List.Count-1]);
             }
 
         }
@@ -31,19 +35,23 @@ namespace GenericsAssignment
             }
             else
             {
-                return (List[List.Count]).ToString();
+                return (List[List.Count-1]).ToString();
             }
         }
 
-        public IEnumerator GetEnumerator()
+
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
+            throw new NotImplementedException();
+        }
 
-            for (int i = List.Count; i ==0; i--)
-            {
-                yield return List[i];
-            }
+        public IEnumerator<CustomerRecord> GetEnumerator()
+        {
+            tempList = List;
+            tempList.Reverse();
+            return tempList.GetEnumerator();
         }
     }
 
-    }
 }
