@@ -17,7 +17,6 @@ namespace GenericsAssignment
             stack.Push(cust3);
             foreach(var c in stack)
             {
-                Console.WriteLine("test");
                 Console.WriteLine(c.ToString());
             }
             /*Console.WriteLine(stack.Peek());
